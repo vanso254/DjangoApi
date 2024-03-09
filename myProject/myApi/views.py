@@ -9,13 +9,15 @@ from .serializers import InventorySerializer
 
 
 # Create your views here.
-
+# A class to view all the inventory
 class InventoryListView(APIView):
     def get(self, request):
         inventories = Inventory.objects.all()
         serializer = InventorySerializer(inventories, many=True)
         return Response(serializer.data)
     
+    
+    #A Class to delete an inventory record
 class InventoryDeleteView(DestroyAPIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
@@ -25,6 +27,7 @@ class InventoryDeleteView(DestroyAPIView):
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+#creating a new Inventory record
 class InventoryCreateView(CreateAPIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
